@@ -70,8 +70,8 @@ public class ClienteRestController {
 			response.put("cliente", clienteCreated);
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Hubo un poblema al guardar el cliente: ".concat(cliente.getNombre()));
-			response.put("error",e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+			response.put("error",e.getMessage());
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
@@ -98,7 +98,7 @@ public class ClienteRestController {
 			}
 		}catch (DataAccessException e) {
 			response.put("mensaje", "Hubo un poblema al actualizar el cliente: ".concat(cliente.getNombre()));
-			response.put("error",e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			response.put("error",e.getMessage());
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
@@ -111,7 +111,7 @@ public class ClienteRestController {
 				clienteService.delete(id);
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Hubo un poblema al eliminar el cliente: ".concat(id.toString()));
-			response.put("error",e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			response.put("error",e.getMessage());
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);			
 		}
 		response.put("mensaje", "El cliente id : ".concat(id.toString().concat(" fue eliminado con éxito")));

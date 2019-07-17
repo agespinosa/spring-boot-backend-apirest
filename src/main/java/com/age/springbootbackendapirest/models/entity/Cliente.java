@@ -30,6 +30,12 @@ public class Cliente implements Serializable{
 	@Column(name="created_at")
 	@Temporal(TemporalType.DATE)
 	private Date createdAt;
+	
+	
+
+	public Cliente() {
+		this.createdAt= new Date();
+	}
 
 	public Long getId() {
 		return id;
