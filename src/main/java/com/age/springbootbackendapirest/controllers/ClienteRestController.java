@@ -10,6 +10,9 @@ import javax.validation.Valid;
 import org.hibernate.mapping.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -40,6 +43,13 @@ public class ClienteRestController {
 	public List<Cliente> list(){
 		return clienteService.findAll();
 	}
+	
+	@GetMapping("/clientes/page/{page}")
+	public Page<Cliente> list(@PathVariable Integer page){
+		Pageable pageable= PageRequest.of(page, 10);
+		return clienteService.findAll(pageable);
+	}
+	
 	
 	@GetMapping("/clientes/{id}")
 	public ResponseEntity<?> show(@PathVariable Long id) {
